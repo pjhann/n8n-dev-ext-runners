@@ -16,6 +16,9 @@ services:
   n8n:
     image: "n8nio/n8n:latest"
     container_name: "n8n-dev"
+    expose:
+      - "${N8N_PORT}"
+      - "${N8N_RUNNERS_BROKER_PORT}"
     depends_on:
       - n8n-postgres
     environment:
@@ -25,8 +28,7 @@ services:
       N8N_PORT: ${N8N_PORT}
       N8N_PROTOCOL: ${N8N_PROTOCOL}
       N8N_DISABLE_UI: "false"
-
-
+    
       # ---- External Task Runners ----
       N8N_RUNNERS_ENABLED: ${N8N_RUNNERS_ENABLED}
       N8N_RUNNERS_MODE: ${N8N_RUNNERS_MODE}
@@ -51,13 +53,8 @@ services:
 
       # Only needed if you plan to receive external webhooks:
       WEBHOOK_URL: ${WEBHOOK_URL}
-
-      # If using a special editor path behind NPM, uncomment:
-      # N8N_EDITOR_BASE_URL: "https://n8n.wesentra.com"
-    
-    # NOTE: No host port exposed. NPM handles public access.
-    # ports:
-    #   - "5678:5678"
+  
+      # ----task runners ----
   task-runners:
     image: n8nio/runners:latest
     container_name: n8n-runners-dev
@@ -67,7 +64,7 @@ services:
       N8N_RUNNERS_STDLIB_ALLOW: true
       N8N_GENERIC_TIMEZONE: Europe/Helsinki
       TZ: Europe/Helsinki
-      # etc.
+      
     depends_on:
       - n8n
 
