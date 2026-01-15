@@ -15,9 +15,15 @@ docker network create n8n-network
 
 
 1) Pull Nginx‑NPM from my nginx‑npm repo.
-2) setup MariaDB credentials to .env
 
-3) Docker Compose Nginx  
+2) setup MariaDB credentials
+
+Set it in `.env` as:  
+```
+MYSQL_ROOT_PASSWSORD=<password>
+MYSQL_PASSWORD=<password>
+```
+4) Docker Compose Nginx  
 ```bash
 docker compose up -d
 ```
@@ -52,7 +58,7 @@ N8N_RUNNERS_TOKEN=<token>
 ```
 9) Setup Prostgres database password
    
-  Set it in `.env` as:  
+Set it in `.env` as:  
 ```
 POSTGRES_PASSWORD=<password>
 ```
