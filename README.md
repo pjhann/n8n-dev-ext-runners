@@ -1,7 +1,7 @@
 N8N WITH EXTERNAL RUNNERS \n
 This N8N is with external runner container for running Python in code node. Nginx-NPM ius to be used in front for reverse proxy and for SSL certificate.
 
-Installation:
+<strong> Installation:<\strong>
 
 1) Pull Nginx-NPM from my Nginx-npm repo 
 2) Docker Compose Nginx
