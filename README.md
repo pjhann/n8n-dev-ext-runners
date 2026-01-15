@@ -1,5 +1,5 @@
 <h> N8N WITH EXTERNAL RUNNERS </h>
-This N8N is with external runner container for running Python in code node. Nginx-NPM ius to be used in front for reverse proxy and for SSL certificate.
+<p>This N8N is with external runner container for running Python in code node. Nginx-NPM ius to be used in front for reverse proxy and for SSL certificate. </p>
 
 <strong> Installation: <\strong>
 
