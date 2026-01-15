@@ -1,8 +1,8 @@
-<h> N8N WITH EXTERNAL RUNNERS </h>
+<h> <strong>N8N WITH EXTERNAL RUNNERS </strong> </h>
 <p>This N8N is with external runner container for running Python in code node. Nginx-NPM ius to be used in front for reverse proxy and for SSL certificate. </p>
 
-<strong> Installation: <\strong>
-
+<strong> Installation: </strong>
+<p>
 1) Pull Nginx-NPM from my Nginx-npm repo 
 2) Docker Compose Nginx
     > docker compose up -d
@@ -21,7 +21,7 @@
     > openssl rand -hex 32
     set it for .env variable N8N_RUNNERS_TOKEN= <token>
 9) Docker Compose N8N
-   
+</p>
 
 
 
