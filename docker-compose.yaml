@@ -1,0 +1,81 @@
+
+
+services:
+  postgres:
+    image: "postgres:16-alpine"
+    container_name: "n8n-postgres"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+    restart: "unless-stopped"
+    networks:
+      - n8n-network
+
+  n8n:
+    image: "n8nio/n8n:latest"
+    container_name: "n8n"
+    depends_on:
+      - "postgres"
+    environment:
+      # --- Base ---
+      N8N_PORT: ${N8N_PORT}
+      N8N_HOST: "0.0.0.0"
+      WEBHOOK_URL: ${WEBHOOK_URL}:${N8N_PORT}
+      N8N_PUBLIC_URL: ${N8N_PUBLIC_URL}
+
+      # --- Database (uses hostname 'postgres' on the same network) ---
+      DB_TYPE: "postgresdb"
+      DB_POSTGRESDB_HOST: "n8n-postgres"
+      DB_POSTGRESDB_PORT: ${POSTGRES_PORT}
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DATABASE}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+
+      # --- External runners (recommended in n8n v2) ---
+      N8N_RUNNERS_ENABLED: "true"
+      N8N_RUNNERS_MODE: "external"
+      N8N_RUNNERS_BROKER_LISTEN_ADDRESS: "0.0.0.0"
+      N8N_RUNNERS_AUTH_TOKEN: "${N8N_RUNNERS_TOKEN}"
+
+      # --- Python Native (runner provides the venv) ---
+      N8N_NATIVE_PYTHON_RUNNER: "true"
+      N8N_PYTHON_VENV: "/opt/n8n-python-venv"
+
+      # --- Disable internal Python runner to avoid warnings ---
+      N8N_PYTHON_ENABLED: "true"
+
+    ports: 
+     # - "8091:5678"   # Uncomment to expose n8n directly (not needed with NPM)
+    volumes:
+      - "n8n_data:/home/node/.n8n"
+    restart: "unless-stopped"
+    networks:
+      - n8n-network
+
+  task-runners:
+    # Build our Python-enabled runner locally (see Dockerfile below)
+    build:
+      context: "./runner"
+      dockerfile: "Dockerfile"
+    image: "n8nio/runners:latest"
+    container_name: "n8n_runners"
+    environment:
+      N8N_RUNNERS_TASK_BROKER_URI: ${N8N_RUNNERS_TASK_BROKER_URI}
+      N8N_RUNNERS_AUTH_TOKEN: "${N8N_RUNNERS_TOKEN}"
+    depends_on:
+      - "n8n"
+    restart: "unless-stopped"
+    networks:
+      - n8n-network
+
+networks:
+  n8n-network:
+    name: n8n-network
+    external: true
+
+volumes:
+  n8n_data:
+  postgres_data:
