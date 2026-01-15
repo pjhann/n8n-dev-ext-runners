@@ -3,7 +3,7 @@
 services:
   postgres:
     image: "postgres:16-alpine"
-    container_name: "n8n-postgres"
+    container_name: "postgres"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -22,13 +22,14 @@ services:
     environment:
       # --- Base ---
       N8N_PORT: ${N8N_PORT}
-      N8N_HOST: "0.0.0.0"
+      N8N_HOST: ${N8N_HOST}
+      N8N_LISTEN_ADDRESS: ${N8N_LISTEN_ADDRESS}
       WEBHOOK_URL: ${WEBHOOK_URL}:${N8N_PORT}
       N8N_PUBLIC_URL: ${N8N_PUBLIC_URL}
 
       # --- Database (uses hostname 'postgres' on the same network) ---
       DB_TYPE: "postgresdb"
-      DB_POSTGRESDB_HOST: "n8n-postgres"
+      DB_POSTGRESDB_HOST: "postgres"
       DB_POSTGRESDB_PORT: ${POSTGRES_PORT}
       DB_POSTGRESDB_DATABASE: ${POSTGRES_DATABASE}
       DB_POSTGRESDB_USER: ${POSTGRES_USER}
@@ -37,8 +38,8 @@ services:
       # --- External runners (recommended in n8n v2) ---
       N8N_RUNNERS_ENABLED: "true"
       N8N_RUNNERS_MODE: "external"
-      N8N_RUNNERS_BROKER_LISTEN_ADDRESS: "0.0.0.0"
-      N8N_RUNNERS_AUTH_TOKEN: "${N8N_RUNNERS_TOKEN}"
+      N8N_RUNNERS_BROKER_LISTEN_ADDRESS: ${N8N_RUNNERS_LISTEN_ADDRESS}
+      N8N_RUNNERS_AUTH_TOKEN: ${N8N_RUNNERS_TOKEN}
 
       # --- Python Native (runner provides the venv) ---
       N8N_NATIVE_PYTHON_RUNNER: "true"
