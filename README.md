@@ -8,9 +8,14 @@ Nginx‑NPM is to be used in front for reverse proxy and for SSL certificate.
 ## **Installation**
 
 1) Pull Nginx‑NPM from my nginx‑npm repo.
-2) setup MariaDB credentials to .env
+2) setup MariaDB credentials
+Set it in `.env` as:  
+```
+MYSQL_ROOT_PASSWSORD=<password>
+MYSQL_PASSWORD=<password>
+```
 
-3) Docker Compose Nginx  
+4) Docker Compose Nginx  
 ```bash
 docker compose up -d
 ```
