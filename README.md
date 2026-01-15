@@ -3,8 +3,8 @@
 
 <strong> Installation: </strong>
 
-1) Pull Nginx-NPM from my Nginx-npm repo 
-2) Docker Compose Nginx
+<p>1) Pull Nginx-NPM from my Nginx-npm repo </p>
+<p> 2) Docker Compose Nginx </p>
     > docker compose up -d
 4) Setup a Proxy Host
     *Domain
