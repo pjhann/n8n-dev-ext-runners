@@ -8,8 +8,9 @@ Nginx‑NPM is to be used in front for reverse proxy and for SSL certificate.
 ## **Installation**
 
 1) Pull Nginx‑NPM from my nginx‑npm repo.
+2) setup MariaDB credentials to .env
 
-2) Docker Compose Nginx  
+3) Docker Compose Nginx  
 ```bash
 docker compose up -d
 ```
@@ -42,8 +43,14 @@ Set it in `.env` as:
 ```
 N8N_RUNNERS_TOKEN=<token>
 ```
-
-9) Docker Compose N8N  
+9) Setup Prostgres database password
+   
+  Set it in `.env` as:  
+```
+POSTGRES_PASSWORD=<password>
+```
+  
+11) Docker Compose N8N  
 ```bash
 docker compose up -d
 ```
