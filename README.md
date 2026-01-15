@@ -6,17 +6,16 @@ Nginx‑NPM is to be used in front for reverse proxy and for SSL certificate.
 ---
 ## **Prerequisites**
 Docker + docker compose installed
-```bash
-docker network create n8n-network
-```
+
 
 ## **Installation**
 1) Create n8n-network 
+```bash
+docker network create n8n-network
+```
+2) Pull Nginx‑NPM from my nginx‑npm repo.
 
-
-1) Pull Nginx‑NPM from my nginx‑npm repo.
-
-2) setup MariaDB credentials
+3) setup MariaDB credentials
 
 Set it in `.env` as:  
 ```
@@ -32,22 +31,22 @@ docker compose up -d
 > Ensure you run this command **inside the directory that contains the Nginx‑NPM `docker-compose.yml` file**.  
 > Running it in another folder will either fail or launch the wrong stack.
 
-4) Setup a Proxy Host  
+5) Setup a Proxy Host  
 - Domain  
 - Protocol: **http**  
 - Host: `<Container name>`  
 - Port: **5678**
 
-5) Get a certificate for n8n and bind it to the host.
+6) Get a certificate for n8n and bind it to the host.
 
-6) Pull N8N repo.
+7) Pull N8N repo.
 
-7) Build runners image  
+8) Build runners image  
 ```bash
 docker compose build
 ```
 
-8) Set up a runners token with OpenSSL  
+9) Set up a runners token with OpenSSL  
 ```bash
 openssl rand -hex 32
 ```
@@ -56,7 +55,7 @@ Set it in `.env` as:
 ```
 N8N_RUNNERS_TOKEN=<token>
 ```
-9) Setup Prostgres database password
+10) Setup Prostgres database password
    
 Set it in `.env` as:  
 ```
